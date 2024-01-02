@@ -1,0 +1,72 @@
+//left Sensor(LSP) on digitalPin 2
+//Right Sensor(RSP) on digitalPin 3
+int LSP=2;
+int RSP=3;
+
+//left Motor connected to 4,5 digitalPins
+//Right Motor connected to 10,9 digitalPins
+int LMP=4;
+int LMN=5;
+int RMP=10;
+int RMN=9;
+
+void setup(){
+
+//Sensor pins are INPUT
+pinMode(LSP,INPUT);
+pinMode(RSP,INPUT);
+
+//Motor Pins are OUTPUT
+pinMode(LMP,OUTPUT);
+pinMode(LMN,OUTPUT);
+pinMode(RMP,OUTPUT);
+pinMode(RMN,OUTPUT);
+}
+
+void loop(){
+
+//Read sensor data and Store it
+int LSD=digitalRead(LSP);
+int RSD=digitalRead(RSP);
+
+//Check the Sensor Data 
+//LSD and RSD are 0 if both are on White 
+if(LSD == 0 && RSD == 0)
+{
+//Move Forward
+digitalWrite(LMP,LOW);
+digitalWrite(LMN,HIGH);
+digitalWrite(RMP,HIGH);
+digitalWrite(RMN,LOW);
+}
+
+//LSD and RSD  are 1,0 if Sensor is on Black
+//Right Sensor is on White
+else if(LSD == 1 && RSD == 0)
+{
+//Left turn
+digitalWrite(LMP,HIGH);
+digitalWrite(LMN,LOW);
+digitalWrite(RMP,HIGH);
+digitalWrite(RMN,LOW);
+}
+//LSD and RSD are 0,1 if Left Sensor is on White
+//Right Sensor is on Black
+else if(LSD == 0 && RSD == 1)
+{
+//Right turn
+digitalWrite(LMP,LOW);
+digitalWrite(LMN,HIGH);
+digitalWrite(RMP,LOW);
+digitalWrite(RMN,HIGH);
+}
+//LSD and RSD are 1 if both are on Black
+else if(LSD == 1 && RSD == 1)
+{
+//Stop
+digitalWrite(LMP,LOW);
+digitalWrite(LMN,LOW);
+digitalWrite(RMP,LOW);
+digitalWrite(RMN,LOW);
+}
+}
